@@ -5,8 +5,10 @@ const Header = () => {
     return(
         <div>
             <h1>Header</h1>
-            <p><Link to={"/"}>Back</Link></p>
-            <p><Link to={'/item/create/new'}>New</Link></p>            
+            <ul>
+                <li><Link to={"/"}>Home</Link></li>
+                <li><Link to={"/subitem"}>Subitem (optional)</Link></li>
+            </ul>              
         </div>
     )
 }
