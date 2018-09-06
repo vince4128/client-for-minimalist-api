@@ -20,16 +20,14 @@ export default (state = {}, action) => {
 
         case DELETE_ITEM:
 
-            //TODO return state without the deleted item
-            console.log('action.payload ', action.payload)
+            //return state without the deleted item
 
-            console.log(
+            //es6 vanilla equivalent of lodash _omit
+            const newState = Object.keys(state)
+                .filter((key) => [`${action.payload}`, '._id'].indexOf(key)<0)
+                .reduce((newObj, key)=> Object.assign(newObj, {[key]: state[key]}),{})
 
-                Object.keys(state).filter((item)=>{
-                    return item._id !== action.payload
-                })
-            )
-            return state;
+            return newState;
 
         default:
             return state;
