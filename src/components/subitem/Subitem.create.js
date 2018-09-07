@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-/*import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createItem } from '../../actions'*/
+import { createSubitem } from '../../actions';
 
 class SubitemCreate extends Component {
 
-    /*renderField(field) { // param field contain some event handlers to wire up to the .jsx that we're returning
+    renderField(field) { // param field contain some event handlers to wire up to the .jsx that we're returning
         const { meta: {touched, error} } = field; // destructuring to access properties on nested objects for refactor
         const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
 
@@ -33,28 +33,24 @@ class SubitemCreate extends Component {
     }
 
     onSubmit(values){        
-        this.props.createItem(values, () => {
-            this.props.history.push('/');
+        this.props.createSubitem(values, () => {
+            this.props.history.push('/subitem');
         });
-    }*/
+    }
 
     render(){
 
-        //const { handleSubmit } = this.props;
+        const { handleSubmit } = this.props;
 
         return(
 
             <div>
 
-            <h1>Create Item</h1>
+            <h1>Create subitem</h1>
 
             <hr/>
 
-            {JSON.stringify(this.props)}
-
-            <hr/>
-
-            {/*<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 
                 <Field
                     label="Title"
@@ -63,21 +59,15 @@ class SubitemCreate extends Component {
                 />
 
                 <Field
-                    label="Description"
-                    name="description"
-                    component={this.renderField}
-                />
-
-                <Field
-                    label="Short Description"
-                    name="shortdescription"
+                    label="Text"
+                    name="text"
                     component={this.renderField}
                 />
 
                 <button type="submit" className="btn btn-primary">Submit</button>
                 <Link to="/" className="btn btn-danger">Cancel</Link>
 
-        </form>*/}
+        </form>
 
         </div>
 
@@ -96,12 +86,8 @@ function validate(values){
         errors.title = "Enter a title !";
     }
 
-    if(!values.description){
-        errors.description = "Enter a description !";
-    }
-
-    if(!values.shortdescription){
-        errors.shortdescription = "Enter a shortdescription !";
+    if(!values.text){
+        errors.description = "Enter a text !";
     }
 
     //if errors is empty, the form is fine to submit
@@ -110,11 +96,11 @@ function validate(values){
 
 }
 
-/*export default reduxForm({
+export default reduxForm({
     validate:validate,
-    form:'CreateItemForm'   //name must be unique (in case of several form it's usefull), and could be whatever string we want. 
+    form:'CreateSubitemForm'   //name must be unique (in case of several form it's usefull), and could be whatever string we want. 
 })(
-    withRouter(connect(null, { createItem })(ItemCreate))
-);*/
+    withRouter(connect(null, { createSubitem })(SubitemCreate))
+);
 
-export default SubitemCreate;
+//export default SubitemCreate;

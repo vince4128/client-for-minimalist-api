@@ -50,10 +50,6 @@ class ItemCreate extends Component {
 
             <hr/>
 
-            {JSON.stringify(this.props)}
-
-            <hr/>
-
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 
                 <Field
