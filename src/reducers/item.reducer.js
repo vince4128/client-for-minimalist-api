@@ -1,6 +1,6 @@
 //importer les actions
 import {
-    FETCH_ALL_ITEMS, FETCH_ITEM_BY_ID, DELETE_ITEM
+    FETCH_ALL_ITEMS, FETCH_ITEM_BY_ID, DELETE_ITEM, EDIT_ITEM
 } from '../actions/types';
 
 export default (state = {}, action) => {
@@ -17,6 +17,9 @@ export default (state = {}, action) => {
         case FETCH_ITEM_BY_ID:
             console.log(action.payload.data);
             return { ...state, [action.payload.data._id]: action.payload.data };
+
+        case EDIT_ITEM:
+            console.log('edit item !');
 
         case DELETE_ITEM:
 

@@ -34,6 +34,8 @@ class ItemShow extends Component {
                     <p>Title : {Item.title}</p>
                     <p>Description : {Item.description}</p>
                     <p>Date : {Item.date}</p>
+                    <Link to={'/'}>Back</Link>
+                    <Link to={`/item/${Item._id}/edit`}>Edit</Link>
                 </div>
             );            
 

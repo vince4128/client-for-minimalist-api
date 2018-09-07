@@ -1,8 +1,9 @@
 //importer les actions
 import {
     FETCH_SUBITEMS,
-    FETCH_SUBITEM_BY_ID,
-    DELETE_SUBITEM
+    FETCH_SUBITEM,
+    DELETE_SUBITEM,
+    EDIT_SUBITEM
 } from '../actions/types';
 
 export default (state = {}, action) => {
@@ -10,17 +11,18 @@ export default (state = {}, action) => {
 
         case FETCH_SUBITEMS:
 
-            alert('fetch subitems');
-
             //in case of the data is an array of object, convert it to object with _id from mongoDb as unnique key
             const data = action.payload.data.reduce((obj, item) => (obj[item._id] = item, obj), {});
 
             console.log(data);
             return data;                        
 
-        case FETCH_SUBITEM_BY_ID:
+        case FETCH_SUBITEM:
             console.log(action.payload.data);
             return { ...state, [action.payload.data._id]: action.payload.data };
+
+        case EDIT_SUBITEM:
+            console.log('edit subitem !');
 
         case DELETE_SUBITEM:
 

@@ -26,12 +26,11 @@ class SubItemIndex extends Component {
                 // operate on the full value since `key` is just the key
                 const renderData = data[key]; 
                 return <li key={renderData._id}>
-                    <Link to={`/item/${renderData._id}`}>ID : {renderData._id}</Link>
-                    <p>Subitem : {renderData.subitem}</p>
+                    <Link to={`/subitem/${renderData._id}`}>ID : {renderData._id}</Link>
                     <p>Title : {renderData.title}</p>
-                    <p>Description : {renderData.description}</p>
-                    <p>Date : {renderData.date}</p>
+                    <p>Text : {renderData.text}</p>
                     <button onClick={()=>{this.handleDelete(renderData._id)}}>Delete</button>
+                    <Link to={`/subitem/${renderData._id}/edit`}>Edit</Link>
                     <hr/>
                 </li>
             })

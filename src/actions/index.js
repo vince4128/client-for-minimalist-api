@@ -6,7 +6,10 @@ import {
     CREATE_ITEM,
     DELETE_ITEM,
     FETCH_SUBITEMS,
-    DELETE_SUBITEM
+    FETCH_SUBITEM,
+    CREATE_SUBITEM,
+    DELETE_SUBITEM,
+    EDIT_ITEM
 } from './types';
 
 const server = 'http://localhost:3000';
@@ -41,6 +44,16 @@ export function createItem(values, callback){
     }
 }
 
+export function editItem(id, values, callback){
+    const request = axios.put(`${server}/${id}`,values)
+        .then(() => callback());
+
+    return {
+        type: EDIT_ITEM,
+        payload: request
+    }
+}
+
 export function deleteItem(id){
     
     axios.delete(`${server}/${id}`);
@@ -54,13 +67,7 @@ export function deleteItem(id){
 /* SUBITEM */
 
 export function fetchSubItems(){
-    alert('fetch subitems');
     const response = axios.get(`${server}/subitem`);
-
-    response.then((r)=>{
-        alert('ok');
-        console.log(r.data);
-    })
 
     return {
         type:FETCH_SUBITEMS,
@@ -72,8 +79,18 @@ export function fetchSubItem(id){
     const response = axios.get(`${server}/subitem/${id}`);
 
     return {
-        type:FETCH_ITEM_BY_ID,
+        type:FETCH_SUBITEM,
         payload:response
+    }
+}
+
+export function createSubitem(values, callback){
+    const request = axios.post(`${server}/subitem`,values)
+        .then(() => callback());
+
+    return {
+        type: CREATE_SUBITEM,
+        payload: request
     }
 }
 
@@ -85,6 +102,16 @@ export function fetchSubItem(id){
         payload:response
     }
 }*/
+
+export function editSubitem(id, values, callback){
+    const request = axios.put(`${server}/subitem/${id}`,values)
+        .then(() => callback());
+
+    return {
+        type: EDIT_ITEM,
+        payload: request
+    }
+}
 
 export function deleteSubItem(id){
     

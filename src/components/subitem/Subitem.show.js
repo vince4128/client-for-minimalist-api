@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Route, Link, withRouter} from 'react-router-dom';
-//import { connect } from 'react-redux';
-//import { fetchItem } from '../../actions/index.js';
+import { connect } from 'react-redux';
+import { fetchSubItem } from '../../actions/index.js';
 
 class SubitemShow extends Component {
 
@@ -9,42 +9,42 @@ class SubitemShow extends Component {
         super(props);
 
         this.state = {
-            selectedItem: null,
+            selectedSubitem: null,
         }
     }
 
     componentDidMount(){
         const { id } = this.props.match.params;
-        this.setState({selectedItem:id});
-        this.props.fetchItem(id);
+        this.setState({selectedSubitem:id});
+        this.props.fetchSubItem(id);
     }
 
-    renderItem(){
-        /*
+    renderSubitem(){
+        
         //avoid mutate
-        const data = Object.assign({}, this.props.items);
+        const data = Object.assign({}, this.props.subitems);
 
         // on recupere l'objet
-        let Item = {};
-        data[this.state.selectedItem] ? Item = data[this.state.selectedItem] : Item = {err:'objet inexistant'};
+        let Subitem = {};
+        data[this.state.selectedSubitem] ? Subitem = data[this.state.selectedSubitem] : Subitem = {err:'sous objet inexistant'};
 
             return (
                 <div>
-                    <p>Id : {Item._id}</p>
-                    <p>Subitem : {Item.subitem}</p>
-                    <p>Title : {Item.title}</p>
-                    <p>Description : {Item.description}</p>
-                    <p>Date : {Item.date}</p>
+                    <p>Id : {Subitem._id}</p>
+                    <p>Title : {Subitem.title}</p>
+                    <p>text : {Subitem.text}</p>
+                    <Link to={'/subitem'}>Back</Link>
+                    <Link to={`/subitem/${Subitem._id}/edit`}>Edit</Link>
                 </div>
             );            
-            */
+            
     }
 
     render(){
         return(
             <div>
                 <h1>Subitem Show</h1>
-                {this.renderItem()}                
+                {this.renderSubitem()}                
             </div>
         )
     }
@@ -52,8 +52,8 @@ class SubitemShow extends Component {
 }
 
 function mapStateToProps(state){
-    return { items:state.items };
+    return { subitems:state.subitems };
 }
 
-export default SubitemShow;
-//export default withRouter(connect(mapStateToProps, { fetchItem })(ItemShow));
+//export default SubitemShow;
+export default withRouter(connect(mapStateToProps, { fetchSubItem })(SubitemShow));
