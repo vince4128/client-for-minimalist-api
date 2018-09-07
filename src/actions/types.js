@@ -7,7 +7,7 @@ export const DELETE_ITEM = 'delete_item';
 
 export const FETCH_SUBITEMS = 'fetch_subitems';
 export const FETCH_SUBITEMS_BY_ITEM = 'fetch_subitems_by_item';
-export const FETCH_SUBITEM_BY_ID = 'fetch_subitem_by_id';
+export const FETCH_SUBITEM = 'fetch_subitem_by_id';
 export const CREATE_SUBITEM = 'create_subitem';
 export const EDIT_SUBITEM = 'edit_suitem';
 export const DELETE_SUBITEM = 'delete_subitem';
