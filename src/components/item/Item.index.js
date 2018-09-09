@@ -28,6 +28,7 @@ class ItemIndex extends Component {
                     <Link to={`/item/${renderData._id}`}>ID : {renderData._id}</Link>
                     <p>Subitem : {renderData.subitem}</p>
                     <p>Title : {renderData.title}</p>
+                    <p>Category : {renderData.category}</p>
                     <p>Description : {renderData.description}</p>
                     <p>Date : {renderData.date}</p>
                     <button onClick={()=>{this.handleDelete(renderData._id)}}>Delete</button>
