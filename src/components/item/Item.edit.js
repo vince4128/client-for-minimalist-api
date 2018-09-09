@@ -3,7 +3,8 @@ import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { editItem, fetchItem } from '../../actions'
+import { editItem, fetchItem } from '../../actions';
+import requireAuth from '../requireAuth';
 
 class ItemEdit extends Component {
 
@@ -36,7 +37,7 @@ class ItemEdit extends Component {
                     //value={this.props.items[this.state.selectedItem].title}
                     {...field.input}
                 />
-                {JSON.stringify(field)}
+                {/*JSON.stringify(field)*/}
                 {touched ? error : ''}
             </div>
         );
@@ -50,7 +51,7 @@ class ItemEdit extends Component {
         );
     }
 
-    onSubmit(values){        
+    onSubmit(values){
         this.props.editItem(this.state.selectedItem, values, () => {
             this.props.history.push('/');
         });
@@ -96,8 +97,8 @@ class ItemEdit extends Component {
 
                 <button type="submit" className="btn btn-primary">Submit</button>
                 <Link to="/" className="btn btn-danger">Cancel</Link>
-                {JSON.stringify(this.props)}
-                {JSON.stringify(this.props.items[this.state.selectedItem])}
+                {/*JSON.stringify(this.props)*/}
+                {/*JSON.stringify(this.props.items[this.state.selectedItem])*/}
 
             </form>
 
@@ -140,5 +141,5 @@ export default reduxForm({
     initialValues:{ field1: 'value1', field2: 'value2' }, 
     form:'EditItemForm'   //name must be unique (in case of several form it's usefull), and could be whatever string we want. 
 })(
-    withRouter(connect(mapStateToProps, { editItem, fetchItem })(ItemEdit))
+    withRouter(requireAuth(connect(mapStateToProps, { editItem, fetchItem })(ItemEdit)))
 );

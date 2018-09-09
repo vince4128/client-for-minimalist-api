@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Route, Link, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchSubItems, deleteSubItem } from '../../actions/index.js';
+import requireAuth from '../requireAuth';
 
 class SubItemIndex extends Component {
     

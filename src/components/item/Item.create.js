@@ -3,7 +3,8 @@ import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createItem } from '../../actions'
+import { createItem } from '../../actions';
+import requireAuth from '../requireAuth';
 
 class ItemCreate extends Component {
 
@@ -109,5 +110,5 @@ export default reduxForm({
     validate:validate,
     form:'CreateItemForm'   //name must be unique (in case of several form it's usefull), and could be whatever string we want. 
 })(
-    withRouter(connect(null, { createItem })(ItemCreate))
+    withRouter(requireAuth(connect(null, { createItem })(ItemCreate)))
 );

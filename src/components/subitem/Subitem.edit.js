@@ -3,7 +3,8 @@ import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { editSubitem } from '../../actions'
+import { editSubitem } from '../../actions';
+import requireAuth from '../requireAuth';
 
 class SubitemEdit extends Component {
 
@@ -112,5 +113,5 @@ export default reduxForm({
     validate:validate,
     form:'EditSubitemForm'   //name must be unique (in case of several form it's usefull), and could be whatever string we want. 
 })(
-    withRouter(connect(null, { editSubitem })(SubitemEdit))
+    withRouter(requireAuth(connect(null, { editSubitem })(SubitemEdit)))
 );
