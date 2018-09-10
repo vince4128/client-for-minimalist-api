@@ -37,8 +37,10 @@ export function createItem(values, callback){
     }
 }
 
-export function editItem(id, values, callback){
-    const request = axios.put(`${server}/${id}`,values)
+export function editItem(id, values, token, callback){
+    const request = axios.put(`${server}/${id}`,values, {
+        headers: {authorization: token}
+    })
         .then(() => callback());
 
     return {
