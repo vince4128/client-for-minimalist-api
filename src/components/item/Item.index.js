@@ -31,8 +31,15 @@ class ItemIndex extends Component {
                     <p>Category : {renderData.category}</p>
                     <p>Description : {renderData.description}</p>
                     <p>Date : {renderData.date}</p>
-                    <button onClick={()=>{this.handleDelete(renderData._id)}}>Delete</button>
-                    <Link to={`/item/${renderData._id}/edit`}>Edit</Link>
+                    {
+                        this.props.connected ? 
+                        (
+                        <div>
+                            <button onClick={()=>{this.handleDelete(renderData._id)}}>Delete</button>
+                            <Link to={`/item/${renderData._id}/edit`}>Edit</Link>
+                        </div>
+                        ) 
+                        : ""}
                     <hr/>
                 </li>
             })

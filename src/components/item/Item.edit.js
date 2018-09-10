@@ -52,7 +52,7 @@ class ItemEdit extends Component {
     }
 
     onSubmit(values){
-        this.props.editItem(this.state.selectedItem, values, () => {
+        this.props.editItem(this.state.selectedItem, values, this.props.connected ,() => {
             this.props.history.push('/');
         });
     }

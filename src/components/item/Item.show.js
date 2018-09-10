@@ -34,18 +34,53 @@ class ItemShow extends Component {
                     <p>Title : {Item.title}</p>
                     <p>Description : {Item.description}</p>
                     <p>Date : {Item.date}</p>
-                    <Link to={'/'}>Back</Link>
-                    <Link to={`/item/${Item._id}/edit`}>Edit</Link>
+                    {
+                        this.props.connected ?
+                        (
+                            <Link to={`/item/${Item._id}/edit`}>Edit</Link>
+                        )
+                        : ""                      
+                    }
+                    <Link to={'/'}>Back</Link>                     
                 </div>
             );            
 
     }
 
+    //renderSubItem(){
+        //avoid mutate
+        //const data = Object.assign({}, this.props.items[this.state.selectedItem]);
+
+        //return JSON.stringify(data);
+
+         //iterate on subitem
+         /*return Object.keys(data)
+             .map(key => {
+                 // operate on the full value since `key` is just the key
+                 const renderData = data[key]; 
+                 return <li key={renderData._id}>
+                     <p>Title : {renderData.title}</p>
+                     {
+                         this.props.connected ? 
+                         (
+                         <div>
+                             <button onClick={()=>{this.handleDelete(renderData._id)}}>Delete</button>
+                             <Link to={`/item/${renderData._id}/edit`}>Edit</Link>
+                         </div>
+                         ) 
+                        : ""}
+                     <hr/>
+                 </li>
+             })*/
+    //}
+
     render(){
         return(
             <div>
                 <h1>Item Show</h1>
-                {this.renderItem()}                
+                {this.renderItem()}
+                <hr/>
+                {/*this.renderSubItem()*/}                
             </div>
         )
     }
