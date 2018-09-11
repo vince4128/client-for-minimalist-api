@@ -1,16 +1,17 @@
 import { AUTH_USER, AUTH_ERROR } from '../actions/types';
 
 const INITIAL_STATE = {
-    authenticated: '',
+    authenticated: localStorage.getItem('token') ? localStorage.getItem('token') : '',
+    _id:localStorage.getItem('_id') ? localStorage.getItem('_id') : '',
     errorMessage: ''
 };
 
 export default function(state = INITIAL_STATE, action) {
     switch(action.type){
         case AUTH_USER:
-            alert('sign in ! payload dans reducer');
+            alert('sign in ! payload dans reducer', action.payload._id);
             alert(action.payload);
-            return { ...state, authenticated: action.payload };
+            return { ...state, authenticated: action.payload.token,  _id:action.payload._id};
         case AUTH_ERROR:
             return { ...state, errorMessage: action.payload };
         default:

@@ -43,12 +43,26 @@ export const signinAction = (formProps, callback) => async dispatch => {
     try {
     const response = await axios.post(`${server}/signin`, formProps);
 
-    dispatch({ type: AUTH_USER, payload: response.data.token });
+    const parsedToken = parseJwt(response.data.token);
+
+    alert(parsedToken.sub);
+
+    console.log('signin action data !', response.data);
+
+    dispatch({ type: AUTH_USER, payload: {token : response.data.token, _id : parsedToken.sub} });
+
     localStorage.setItem('token', response.data.token);
+    localStorage.setItem('_id', parsedToken.sub);
     callback();
     } catch(e) {
         dispatch({ type: AUTH_ERROR, payload: 'Invalid login'});
     }
+};
+
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
 };
 
 /*export function signinAction (formProps, callback){
@@ -73,9 +87,10 @@ export const signinAction = (formProps, callback) => async dispatch => {
 
 export function signoutAction(){
 
-    alert('signout lancé !');
+    alert('signout lancé !', localStorage._id);
 
     localStorage.removeItem('token');
+    localStorage.removeItem('_id');
 
     return {
         type: AUTH_USER,
