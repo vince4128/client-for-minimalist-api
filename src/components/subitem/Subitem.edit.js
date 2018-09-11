@@ -47,7 +47,7 @@ class SubitemEdit extends Component {
     }
 
     onSubmit(values){        
-        this.props.editSubitem(this.state.selectedSubitem, values, () => {
+        this.props.editSubitem(this.state.selectedSubitem, values, this.props.connected, () => {
             this.props.history.push('/subitem');
         });
     }

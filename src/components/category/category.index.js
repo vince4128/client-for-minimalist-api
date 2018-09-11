@@ -13,7 +13,7 @@ class CategoryIndex extends Component {
     }
 
     handleDelete(id){
-        this.props.deleteCategory(id);        
+        this.props.deleteCategory(id, this.props.connected);        
     }
 
     renderCategories(){
@@ -30,8 +30,15 @@ class CategoryIndex extends Component {
                     <p>Title : {renderData.title}</p>
                     <p>Description : {renderData.description}</p>
                     <p>Description : {renderData.shortDescription}</p>
-                    <button onClick={()=>{this.handleDelete(renderData._id)}}>Delete</button>
-                    <Link to={`/category/${renderData._id}/edit`}>Edit</Link>
+                    {
+                        this.props.connected ? 
+                        (
+                        <div>
+                            <button onClick={()=>{this.handleDelete(renderData._id)}}>Delete</button>
+                            <Link to={`/category/${renderData._id}/edit`}>Edit</Link>
+                        </div>
+                        ) 
+                        : ""}
                     <hr/>
                 </li>
             })

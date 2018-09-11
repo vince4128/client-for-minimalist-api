@@ -13,7 +13,7 @@ class ItemIndex extends Component {
     }
 
     handleDelete(id){
-        this.props.deleteItem(id);        
+        this.props.deleteItem(id,this.props.connected);        
     }
 
     renderItems(){    
@@ -26,7 +26,7 @@ class ItemIndex extends Component {
                 const renderData = data[key]; 
                 return <li key={renderData._id}>
                     <Link to={`/item/${renderData._id}`}>ID : {renderData._id}</Link>
-                    <p>Subitem : {renderData.subitem}</p>
+                    <p>Subitem : {renderData.subitem.length}</p>
                     <p>Title : {renderData.title}</p>
                     <p>Category : {renderData.category}</p>
                     <p>Description : {renderData.description}</p>

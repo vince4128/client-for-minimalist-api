@@ -27,8 +27,10 @@ export function fetchItem(id){
     }
 }
 
-export function createItem(values, callback){
-    const request = axios.post(`${server}`,values)
+export function createItem(values, token, callback){
+    const request = axios.post(`${server}`,values, {
+        headers: {authorization: token}
+    })
         .then(() => callback());
 
     return {
@@ -49,9 +51,11 @@ export function editItem(id, values, token, callback){
     }
 }
 
-export function deleteItem(id){
+export function deleteItem(id, token){
     
-    axios.delete(`${server}/${id}`);
+    axios.delete(`${server}/${id}`, {
+        headers: {authorization: token}
+    });
 
     return {
         type: DELETE_ITEM,

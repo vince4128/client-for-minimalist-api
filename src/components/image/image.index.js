@@ -13,7 +13,7 @@ class ImageIndex extends Component {
     }
 
     handleDelete(id){
-        this.props.deleteImage(id);        
+        this.props.deleteImage(id, this.props.connected);        
     }
 
     renderImages(){
@@ -28,8 +28,15 @@ class ImageIndex extends Component {
                 return <li key={renderData._id}>
                     <Link to={`/image/${renderData._id}`}>ID : {renderData._id}</Link>
                     <p>Title : {renderData.title}</p>
-                    <button onClick={()=>{this.handleDelete(renderData._id)}}>Delete</button>
-                    <Link to={`/image/${renderData._id}/edit`}>Edit</Link>
+                    {
+                        this.props.connected ? 
+                        (
+                        <div>
+                            <button onClick={()=>{this.handleDelete(renderData._id)}}>Delete</button>
+                            <Link to={`/image/${renderData._id}/edit`}>Edit</Link>
+                        </div>
+                        ) 
+                        : ""}
                     <hr/>
                 </li>
             })

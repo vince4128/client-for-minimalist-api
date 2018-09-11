@@ -33,8 +33,8 @@ class ImageCreate extends Component {
         );
     }
 
-    onSubmit(values){        
-        this.props.createImage(values, () => {
+    onSubmit(values){
+        this.props.createImage(values, this.props.connected, () => {
             this.props.history.push('/image');
         });
     }

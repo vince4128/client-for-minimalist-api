@@ -34,7 +34,13 @@ class SubitemShow extends Component {
                     <p>Title : {Subitem.title}</p>
                     <p>text : {Subitem.text}</p>
                     <Link to={'/subitem'}>Back</Link>
-                    <Link to={`/subitem/${Subitem._id}/edit`}>Edit</Link>
+                    {
+                        this.props.connected ?
+                        (
+                            <Link to={`/subitem/${Subitem._id}/edit`}>Edit</Link>
+                        )
+                        : ""                      
+                    }
                 </div>
             );            
             

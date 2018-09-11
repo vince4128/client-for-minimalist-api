@@ -34,7 +34,13 @@ class ImageShow extends Component {
                     <p>Title : {Image.title}</p>
                     <p>text : {Image.text}</p>
                     <Link to={'/image'}>Back</Link>
+                    {
+                        this.props.connected ?
+                        (
                     <Link to={`/image/${Image._id}/edit`}>Edit</Link>
+                    )
+                        : ""                      
+                    }
                 </div>
             );            
             

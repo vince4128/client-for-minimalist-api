@@ -47,7 +47,7 @@ class CategoryEdit extends Component {
     }
 
     onSubmit(values){        
-        this.props.editCategory(this.state.selectedCategory, values, () => {
+        this.props.editCategory(this.state.selectedCategory, values, this.props.connected, () => {
             this.props.history.push('/category');
         });
     }

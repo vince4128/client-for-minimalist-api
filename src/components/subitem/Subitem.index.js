@@ -14,7 +14,7 @@ class SubItemIndex extends Component {
     }
 
     handleDelete(id){
-        this.props.deleteSubItem(id);        
+        this.props.deleteSubItem(id, this.props.connected);        
     }
 
     renderItems(){
@@ -30,8 +30,15 @@ class SubItemIndex extends Component {
                     <Link to={`/subitem/${renderData._id}`}>ID : {renderData._id}</Link>
                     <p>Title : {renderData.title}</p>
                     <p>Text : {renderData.text}</p>
-                    <button onClick={()=>{this.handleDelete(renderData._id)}}>Delete</button>
-                    <Link to={`/subitem/${renderData._id}/edit`}>Edit</Link>
+                    {
+                        this.props.connected ? 
+                        (
+                        <div>
+                            <button onClick={()=>{this.handleDelete(renderData._id)}}>Delete</button>
+                            <Link to={`/subitem/${renderData._id}/edit`}>Edit</Link>
+                        </div>
+                        ) 
+                        : ""}
                     <hr/>
                 </li>
             })

@@ -35,7 +35,13 @@ class CategoryShow extends Component {
                     <p>Description : {Category.description}</p>
                     <p>shortDescription : {Category.shortDescription}</p>
                     <Link to={'/category'}>Back</Link>
-                    <Link to={`/category/${Category._id}/edit`}>Edit</Link>
+                    {
+                        this.props.connected ?
+                        (
+                            <Link to={`/category/${Category._id}/edit`}>Edit</Link>
+                        )
+                        : ""                      
+                    }
                 </div>
             );            
             

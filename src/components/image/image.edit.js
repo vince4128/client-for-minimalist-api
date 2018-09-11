@@ -47,7 +47,7 @@ class ImageEdit extends Component {
     }
 
     onSubmit(values){        
-        this.props.editImage(this.state.selectedImage, values, () => {
+        this.props.editImage(this.state.selectedImage, values,  this.props.connected, () => {
             this.props.history.push('/image');
         });
     }

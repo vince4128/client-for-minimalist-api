@@ -27,8 +27,10 @@ export function fetchImage(id){
     }
 }
 
-export function createImage(values, callback){
-    const request = axios.post(`${server}/image`,values)
+export function createImage(values, token, callback){
+    const request = axios.post(`${server}/image`,values, {
+        headers: {authorization:token}
+    })
         .then(() => callback());
 
     return {
@@ -46,8 +48,10 @@ export function createImage(values, callback){
     }
 }*/
 
-export function editImage(id, values, callback){
-    const request = axios.put(`${server}/image/${id}`,values)
+export function editImage(id, values, token, callback){
+    const request = axios.put(`${server}/image/${id}`,values, {
+        headers: {authorization:token}
+    })
         .then(() => callback());
 
     return {
@@ -56,9 +60,11 @@ export function editImage(id, values, callback){
     }
 }
 
-export function deleteImage(id){
+export function deleteImage(id, token){
     
-    axios.delete(`${server}/image/${id}`);
+    axios.delete(`${server}/image/${id}`, {
+        headers: {authorization:token}
+    });
 
     return {
         type: DELETE_IMAGE,

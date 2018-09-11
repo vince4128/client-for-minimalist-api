@@ -34,7 +34,7 @@ class ItemCreate extends Component {
     }
 
     onSubmit(values){        
-        this.props.createItem(values, () => {
+        this.props.createItem(values, this.props.connected, () => {
             this.props.history.push('/');
         });
     }

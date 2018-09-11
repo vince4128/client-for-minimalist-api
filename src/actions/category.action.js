@@ -27,8 +27,10 @@ export function fetchCategory(id){
     }
 }
 
-export function createCategory(values, callback){
-    const request = axios.post(`${server}/category`,values)
+export function createCategory(values, token, callback){
+    const request = axios.post(`${server}/category`,values, {
+        headers: {authorization: token}
+    })
         .then(() => callback());
 
     return {
@@ -46,8 +48,10 @@ export function createCategory(values, callback){
     }
 }*/
 
-export function editCategory(id, values, callback){
-    const request = axios.put(`${server}/category/${id}`,values)
+export function editCategory(id, values, token, callback){
+    const request = axios.put(`${server}/category/${id}`,values, {
+        headers: {authorization:token}
+    })
         .then(() => callback());
 
     return {
@@ -56,9 +60,11 @@ export function editCategory(id, values, callback){
     }
 }
 
-export function deleteCategory(id){
+export function deleteCategory(id, token){
     
-    axios.delete(`${server}/category/${id}`);
+    axios.delete(`${server}/category/${id}`, {
+        headers: {authorization:token}
+    });
 
     return {
         type: DELETE_CATEGORY,

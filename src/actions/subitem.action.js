@@ -27,8 +27,10 @@ export function fetchSubItem(id){
     }
 }
 
-export function createSubitem(values, callback){
-    const request = axios.post(`${server}/subitem`,values)
+export function createSubitem(values, token, callback){
+    const request = axios.post(`${server}/subitem`, values, {
+        headers: {authorization: token}
+    })
         .then(() => callback());
 
     return {
@@ -46,8 +48,10 @@ export function createSubitem(values, callback){
     }
 }*/
 
-export function editSubitem(id, values, callback){
-    const request = axios.put(`${server}/subitem/${id}`,values)
+export function editSubitem(id, values, token, callback){
+    const request = axios.put(`${server}/subitem/${id}`,values, {
+        headers: {authorization:token}
+    })
         .then(() => callback());
 
     return {
@@ -56,9 +60,11 @@ export function editSubitem(id, values, callback){
     }
 }
 
-export function deleteSubItem(id){
+export function deleteSubItem(id, token){
     
-    axios.delete(`${server}/subitem/${id}`);
+    axios.delete(`${server}/subitem/${id}`, {
+        headers: {authorization: token}
+    });
 
     return {
         type: DELETE_SUBITEM,

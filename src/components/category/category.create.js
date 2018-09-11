@@ -34,7 +34,7 @@ class CategoryCreate extends Component {
     }
 
     onSubmit(values){        
-        this.props.createCategory(values, () => {
+        this.props.createCategory(values, this.props.connected, () => {
             this.props.history.push('/category');
         });
     }
