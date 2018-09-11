@@ -28,6 +28,11 @@ import CategoryShow from './category/category.show';
 import CategoryCreate from './category/category.create';
 import CategoryEdit from './category/category.edit';
 
+import UserIndex from './user/user.index';
+import UserShow from './user/user.show';
+/*import UserCreate from './user/user.create';
+import UserEdit from './user/user.edit';*/
+
 import Signin from './auth/Signin';
 import Signup from './auth/Signup';
 import Signout from './auth/Signout';
@@ -47,6 +52,7 @@ class App extends Component {
     render(){
         return(
             <div>
+                <h1>Hello {this.props._id}</h1>
                 <Header/>
                 {/*SIGN PATH*/}                
                 <Route path="/signin" exact component={Signin} />
@@ -57,7 +63,7 @@ class App extends Component {
                 <Route path="/" exact render={()=><ItemIndex connected={this.props.authenticated}/>} />
                 <Switch>
                     <Route path="/item/:id/edit" render={()=><ItemEdit connected={this.props.authenticated}/>} />
-                    <Route path="/item/new" component={ItemCreate} />
+                    <Route path="/item/new" render={()=><ItemCreate connected={this.props.authenticated}/>} />
                     <Route path="/item/:id" render={()=><ItemShow connected={this.props.authenticated}/>} />                    
                 </Switch>                
                 {/*SUBITEM PATH*/}                
@@ -65,25 +71,33 @@ class App extends Component {
                 <Route path="/subitem" exact render={()=><SubitemIndex connected={this.props.authenticated} />} />
                 <Switch>
                     <Route path="/subitem/:id/edit" render={()=><SubitemEdit connected={this.props.authenticated}/>} />
-                    <Route path="/subitem/new" component={SubitemCreate} />
+                    <Route path="/subitem/new" render={()=><SubitemCreate connected={this.props.authenticated}/>} />
                     <Route path="/subitem/:id" render={()=><SubitemShow connected={this.props.authenticated}/> } />
                 </Switch>
                 {/*IMAGE PATH*/}
                 <Route path="/image" exact component={HeaderImage} />                         
                 <Route path="/image" exact render={()=><ImageIndex connected={this.props.authenticated}/>} />
                 <Switch>
-                    <Route path="/image/:id/edit" component={ImageEdit} />
-                    <Route path="/image/new" component={ImageCreate} />
+                    <Route path="/image/:id/edit" render={()=><ImageEdit connected={this.props.authenticated}/>} />
+                    <Route path="/image/new" render={()=><ImageCreate connected={this.props.authenticated}/>} />
                     <Route path="/image/:id" render={()=><ImageShow connected={this.props.authenticated}/>} />
                 </Switch>
                 {/*CATEGORY PATH*/}
                 <Route path="/category" exact component={HeaderCategory} />                         
                 <Route path="/category" exact render={()=><CategoryIndex connected={this.props.authenticated}/>} />
                 <Switch>
-                    <Route path="/category/:id/edit" component={CategoryEdit} />} />
-                    <Route path="/category/new" component={CategoryCreate} />
+                    <Route path="/category/:id/edit" render={()=><CategoryEdit connected={this.props.authenticated}/>} />
+                    <Route path="/category/new" render={()=><CategoryCreate connected={this.props.authenticated}/>} />
                     <Route path="/category/:id" render={()=><CategoryShow connected={this.props.authenticated}/>} />
-                </Switch>                               
+                </Switch>
+                {/*USER PATH*/}
+                {/*<Route path="/category" exact component={HeaderCategory} />*/}                         
+                <Route path="/user" exact render={()=><UserIndex connected={this.props.authenticated}/>} />
+                <Switch>
+                    {/*<Route path="/category/:id/edit" render={()=><CategoryEdit connected={this.props.authenticated}/>} />
+                    <Route path="/category/new" render={()=><CategoryCreate connected={this.props.authenticated}/>} />*/}
+                    <Route path="/user/:id" render={()=><UserShow connected={this.props.authenticated}/>} />
+                </Switch>                                
             </div>
         )
     }
@@ -91,7 +105,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state){
-    return { authenticated: state.auth.authenticated };
+    return { authenticated: state.auth.authenticated, _id:state.auth._id };
 }
 
 export default connect(mapStateToProps)(App);

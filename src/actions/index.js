@@ -6,4 +6,5 @@ export * from './item.action';
 export * from './subitem.action';
 export * from './image.action';
 export * from './category.action';
+export * from './user.action';
 export * from './auth.action';

@@ -13,7 +13,7 @@ export const EDIT_SUBITEM = 'edit_suitem';
 export const DELETE_SUBITEM = 'delete_subitem';
 
 export const FETCH_USERS = 'fetch_users';
-export const FETCH_USER_BY_ID = 'fetch_user_by_id';
+export const FETCH_USER = 'fetch_user_by_id';
 export const CREATE_USER = 'create_user';
 export const EDIT_USER = 'edit_user';
 export const DELETE_USER = 'delete_user';
