@@ -30,7 +30,11 @@ class ItemShow extends Component {
             return (
                 <div>
                     <p>Id : {Item._id}</p>
-                    <p>Subitem : {Item.subitem}</p>
+                    {/*<p>Subitem : {JSON.stringify(Item.subitem)}</p>*/}
+                    <p>Subitem : </p>
+                    <ul>
+                        <li>{this.renderSubItem()}</li>
+                    </ul>
                     <p>Title : {Item.title}</p>
                     <p>Description : {Item.description}</p>
                     <p>Date : {Item.date}</p>
@@ -47,32 +51,30 @@ class ItemShow extends Component {
 
     }
 
-    //renderSubItem(){
+    renderSubItem(){
         //avoid mutate
-        //const data = Object.assign({}, this.props.items[this.state.selectedItem]);
+        if(this.props.items){
 
-        //return JSON.stringify(data);
+            const data = Object.assign({}, this.props.items[this.state.selectedItem]);
 
-         //iterate on subitem
-         /*return Object.keys(data)
-             .map(key => {
-                 // operate on the full value since `key` is just the key
-                 const renderData = data[key]; 
-                 return <li key={renderData._id}>
-                     <p>Title : {renderData.title}</p>
-                     {
-                         this.props.connected ? 
-                         (
-                         <div>
-                             <button onClick={()=>{this.handleDelete(renderData._id)}}>Delete</button>
-                             <Link to={`/item/${renderData._id}/edit`}>Edit</Link>
-                         </div>
-                         ) 
-                        : ""}
-                     <hr/>
-                 </li>
-             })*/
-    //}
+            if(data.subitem){
+                const subitemData = data.subitem;
+                //iterate on subitem
+                return subitemData.map((subitem)=>{
+                    return( 
+                    <li key={subitem._id}>
+                        <p>id : {subitem._id}</p>
+                        <p>title : {subitem.title}</p>
+                        <p>text : {subitem.text}</p>
+                    </li>
+                    )
+                })
+            }
+            
+        }else{
+            return 'loading';
+        }
+    }
 
     render(){
         return(
