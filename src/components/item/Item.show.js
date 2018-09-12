@@ -29,6 +29,7 @@ class ItemShow extends Component {
 
             return (
                 <div>
+                    {JSON.stringify(Item)}
                     <p>Id : {Item._id}</p>
                     {/*<p>Subitem : {JSON.stringify(Item.subitem)}</p>*/}
                     <p>Subitem : </p>
@@ -36,8 +37,12 @@ class ItemShow extends Component {
                         <li>{this.renderSubItem()}</li>
                     </ul>
                     <p>Title : {Item.title}</p>
+                    <p>Image : {Item.image.title}</p>
+                    {/*JSON.stringify(Item.image)*/}
+                    {/*<p>Category : {Item.category.title}</p>*/}
                     <p>Description : {Item.description}</p>
                     <p>Date : {Item.date}</p>
+                    {/*<p>Author : {Item.author.email}</p>*/}
                     {
                         this.props.connected ?
                         (

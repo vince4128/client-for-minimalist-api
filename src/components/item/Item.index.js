@@ -28,9 +28,11 @@ class ItemIndex extends Component {
                     <Link to={`/item/${renderData._id}`}>ID : {renderData._id}</Link>
                     <p>Subitem : {renderData.subitem.length}</p>
                     <p>Title : {renderData.title}</p>
-                    <p>Category : {renderData.category}</p>
+                    <p>Image : {renderData.image.title}</p>
+                    <p>Category : {renderData.category.title}</p>
                     <p>Description : {renderData.description}</p>
                     <p>Date : {renderData.date}</p>
+                    <p>Author : {renderData.author.email}</p>
                     {
                         this.props.connected ? 
                         (
