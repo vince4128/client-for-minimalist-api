@@ -27,8 +27,8 @@ export function fetchItem(id){
     }
 }
 
-export function createItem(values, token, callback){
-    const request = axios.post(`${server}`,values, {
+export const createItem = (values, token, callback) => async dispatch => {
+    /*const request = axios.post(`${server}`,values, {
         headers: {authorization: token}
     })
         .then(() => callback());
@@ -36,7 +36,17 @@ export function createItem(values, token, callback){
     return {
         type: CREATE_ITEM,
         payload: request
-    }
+    }*/
+    try {
+        const response = await axios.post(`${server}`,values, {
+            headers: {authorization: token}
+        })
+        const newlyCreatedObjId = response.data._id;
+        callback(newlyCreatedObjId);
+        } catch(e) {
+            //dispatch({ type: AUTH_ERROR, payload: 'Invalid login'});
+            alert("something went wrong :( !!! " + e);
+        }
 }
 
 export function editItem(id, values, token, callback){
