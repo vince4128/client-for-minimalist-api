@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Route, Link, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
+import SubitemCreate from '../subitem/Subitem.create';
 import { fetchItem } from '../../actions/index.js';
 
 class ItemShow extends Component {
@@ -33,9 +34,16 @@ class ItemShow extends Component {
                     <p>Title : {Item.title}</p>
                     <p>Description : {Item.description}</p>
                     <p>ShortDescription : {Item.shortDescription}</p>
+                    <p>Category : {this.renderCat(Item.category)}</p>
                     <p>Subitem : </p>
                     <ul>
                         <li>{this.renderSubitem(Item.subitem)}</li>
+                        <li>                        
+                            <hr/>
+                                <button type="button">ajouter un subitem</button>
+                            <hr/>
+                            <SubitemCreate connected={this.props.connected} idParent={Item._id}/>
+                        </li>
                     </ul>                
                     <p>Image : {this.renderImage(Item.image)}</p>                    
                     <p>Date : {Item.date}</p>
@@ -70,13 +78,18 @@ class ItemShow extends Component {
 
     renderImage(image){
         if(image){
-            return image.title;
-        }
-        
-        return image
+            return image
             ? image.title
             : <span>Loading</span>
+        }
+    }
 
+    renderCat(cat){
+        if(cat){
+            return cat
+            ? cat.title
+            : <span>Loading</span>
+        }
     }
 
     render(){
