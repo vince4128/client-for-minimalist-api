@@ -30,6 +30,7 @@ class SubItemIndex extends Component {
                     <Link to={`/subitem/${renderData._id}`}>ID : {renderData._id}</Link>
                     <p>Title : {renderData.title}</p>
                     <p>Text : {renderData.text}</p>
+                    <p>Image : {renderData.image.title}</p>
                     {
                         this.props.connected ? 
                         (

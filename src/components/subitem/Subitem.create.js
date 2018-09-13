@@ -3,10 +3,14 @@ import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createSubitem } from '../../actions';
+import { createSubitem, fetchImages } from '../../actions';
 import requireAuth from '../requireAuth';
 
 class SubitemCreate extends Component {
+
+    componentDidMount(){
+        this.props.fetchImages();
+    }
 
     renderField(field) { // param field contain some event handlers to wire up to the .jsx that we're returning
         const { meta: {touched, error} } = field; // destructuring to access properties on nested objects for refactor
@@ -22,6 +26,38 @@ class SubitemCreate extends Component {
                 />
                 {touched ? error : ''}
             </div>
+        );
+    }
+
+    renderSelectField(field){
+        const { meta: {touched, error}} = field;
+        const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
+
+        return(
+            <div className={className}>
+                <label>{field.label}</label>
+                <select
+                    className="form-control"
+                    type="select"
+                    {...field.input}>                    
+                    {field.children}
+                </select>
+                {touched ? error : ''}
+            </div>
+        )
+    }
+
+    renderImages(){
+        //avoid mutate
+        const data = Object.assign({}, this.props.images);
+        //options to return
+        return Object.keys(data).map(
+            (img)=>{
+                return(
+                    <option key={data[img]._id} value={data[img]._id}>
+                    {data[img].title}</option>
+                )
+            }
         );
     }
 
@@ -65,6 +101,13 @@ class SubitemCreate extends Component {
                     component={this.renderField}
                 />
 
+                <Field
+                    label="Image"
+                    name="image"
+                    component={this.renderSelectField}>
+                    {this.renderImages()}
+                </Field>
+
                 <button type="submit" className="btn btn-primary">Submit</button>
                 <Link to="/" className="btn btn-danger">Cancel</Link>
 
@@ -91,17 +134,26 @@ function validate(values){
         errors.description = "Enter a text !";
     }
 
+    if(!values.image){
+        errors.image = "Choose a image !";
+    }
+
+
     //if errors is empty, the form is fine to submit
     //if errors as any property, redux form is invalid
     return errors;
 
 }
 
+function mapStateToProps(state){
+    return {images:state.images}
+}
+
 export default reduxForm({
     validate:validate,
     form:'CreateSubitemForm'   //name must be unique (in case of several form it's usefull), and could be whatever string we want. 
 })(
-    withRouter(requireAuth(connect(null, { createSubitem })(SubitemCreate)))
+    withRouter(requireAuth(connect(mapStateToProps, { createSubitem, fetchImages })(SubitemCreate)))
 );
 
 //export default SubitemCreate;

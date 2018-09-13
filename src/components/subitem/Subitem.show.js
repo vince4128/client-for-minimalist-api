@@ -19,6 +19,17 @@ class SubitemShow extends Component {
         this.props.fetchSubItem(id);
     }
 
+    renderImage(image){
+        if(image){
+            return image.title;
+        }
+        
+        return image
+            ? image.title
+            : <span>Loading</span>
+
+    }
+
     renderSubitem(){
         
         //avoid mutate
@@ -33,6 +44,7 @@ class SubitemShow extends Component {
                     <p>Id : {Subitem._id}</p>
                     <p>Title : {Subitem.title}</p>
                     <p>text : {Subitem.text}</p>
+                    <p>Image : {this.renderImage(Subitem.image)}</p>
                     <Link to={'/subitem'}>Back</Link>
                     {
                         this.props.connected ?
