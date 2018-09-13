@@ -69,7 +69,10 @@ class SubitemCreate extends Component {
         );
     }
 
-    onSubmit(values){        
+    onSubmit(values){
+        if(this.props.idParent){
+            values.idParent = this.props.idParent;
+        }        
         this.props.createSubitem(values, this.props.connected, () => {
             this.props.history.push('/subitem');
         });
