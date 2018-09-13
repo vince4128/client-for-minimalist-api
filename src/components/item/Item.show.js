@@ -29,20 +29,16 @@ class ItemShow extends Component {
 
             return (
                 <div>
-                    {JSON.stringify(Item)}
                     <p>Id : {Item._id}</p>
-                    {/*<p>Subitem : {JSON.stringify(Item.subitem)}</p>*/}
+                    <p>Title : {Item.title}</p>
+                    <p>Description : {Item.description}</p>
+                    <p>ShortDescription : {Item.shortDescription}</p>
                     <p>Subitem : </p>
                     <ul>
-                        <li>{this.renderSubItem()}</li>
-                    </ul>
-                    <p>Title : {Item.title}</p>
-                    <p>Image : {Item.image.title}</p>
-                    {/*JSON.stringify(Item.image)*/}
-                    {/*<p>Category : {Item.category.title}</p>*/}
-                    <p>Description : {Item.description}</p>
+                        <li>{this.renderSubitem(Item.subitem)}</li>
+                    </ul>                
+                    <p>Image : {this.renderImage(Item.image)}</p>                    
                     <p>Date : {Item.date}</p>
-                    {/*<p>Author : {Item.author.email}</p>*/}
                     {
                         this.props.connected ?
                         (
@@ -52,33 +48,35 @@ class ItemShow extends Component {
                     }
                     <Link to={'/'}>Back</Link>                     
                 </div>
-            );            
+            );         
 
     }
 
-    renderSubItem(){
-        //avoid mutate
-        if(this.props.items){
+    renderSubitem(subItem){
 
-            const data = Object.assign({}, this.props.items[this.state.selectedItem]);
+        return subItem
+            ? subItem.map((sub)=>{
+                return( 
+                <li key={sub._id}>
+                    <p>id : {sub._id}</p>
+                    <p>title : {sub.title}</p>
+                <p>text : {sub.text}</p>
+                </li>
+                )
+            })
+            : <span>Loading</span>
 
-            if(data.subitem){
-                const subitemData = data.subitem;
-                //iterate on subitem
-                return subitemData.map((subitem)=>{
-                    return( 
-                    <li key={subitem._id}>
-                        <p>id : {subitem._id}</p>
-                        <p>title : {subitem.title}</p>
-                        <p>text : {subitem.text}</p>
-                    </li>
-                    )
-                })
-            }
-            
-        }else{
-            return 'loading';
+    }
+
+    renderImage(image){
+        if(image){
+            return image.title;
         }
+        
+        return image
+            ? image.title
+            : <span>Loading</span>
+
     }
 
     render(){

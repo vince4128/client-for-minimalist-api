@@ -86,8 +86,7 @@ class ItemCreate extends Component {
     }
 
     onSubmit(values){
-        values.author = this.props.auth._id;
-        console.log('values ! ', values);        
+        values.author = this.props.auth._id;      
         this.props.createItem(values, this.props.connected, () => {
             this.props.history.push('/');
         });
