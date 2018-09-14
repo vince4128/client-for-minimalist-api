@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Route, Link, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import SubitemCreate from '../subitem/Subitem.create';
+import ItemShowSubitem from './Item.showSubitem';
 import { fetchItem } from '../../actions/index.js';
 
 class ItemShow extends Component {
@@ -11,7 +12,15 @@ class ItemShow extends Component {
 
         this.state = {
             selectedItem: null,
+            addSubitem: false
         }
+
+    }
+
+    toggleAddSubitem(){
+        this.setState(prevState => ({
+            addSubitem: !prevState.addSubitem
+        }))
     }
 
     componentDidMount(){
@@ -37,14 +46,10 @@ class ItemShow extends Component {
                     <p>Category : {this.renderCat(Item.category)}</p>
                     <p>Subitem : </p>
                     <ul>
-                        <li>{this.renderSubitem(Item.subitem)}</li>
-                        <li>                        
-                            <hr/>
-                                <button type="button">ajouter un subitem</button>
-                            <hr/>
-                            <SubitemCreate connected={this.props.connected} idParent={Item._id}/>
-                        </li>
-                    </ul>                
+                        <ItemShowSubitem subitem={Item.subitem}/>                                              
+                    </ul>                    
+                    {!this.state.addSubitem ? <button type="button" onClick={()=>this.toggleAddSubitem()}>ajouter un subitem</button> : ''}
+                    {this.state.addSubitem ? <SubitemCreate connected={this.props.connected} idParent={Item._id}/> : ''}                
                     <p>Image : {this.renderImage(Item.image)}</p>                    
                     <p>Date : {Item.date}</p>
                     {
@@ -73,7 +78,6 @@ class ItemShow extends Component {
                 )
             })
             : <span>Loading</span>
-
     }
 
     renderImage(image){
