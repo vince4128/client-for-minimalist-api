@@ -28,7 +28,7 @@ export function fetchImage(id){
 }
 
 export function createImage(values, token, callback){
-    const request = axios.post(`${server}/image`,values, {
+    /*const request = axios.post(`${server}/image`,values, {
         headers: {authorization:token}
     })
         .then(() => callback());
@@ -36,7 +36,35 @@ export function createImage(values, token, callback){
     return {
         type: CREATE_IMAGE,
         payload: request
+    }*/
+
+    alert('create image !');
+    console.log("values in action ", values);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `${server}/upload`, true);
+
+    xhr.setRequestHeader("Content-Type", "multipart/form-data");
+
+    xhr.onreadystatechange = () => {
+        if(this.readyState == XMLHttpRequest.DONE && this.status == 200){
+            alert('requete effectuee');
+        }
     }
+
+    xhr.send(values);
+
+    /*const formData = new FormData();
+    formData.append("image-to-upload", values);
+    xhr.send(formData);*/
+
+    callback();
+
+    return {
+        type:CREATE_IMAGE,
+        payload: {"ok":"ok"}
+    }
+
 }
 
 /*export function fetchImageByItem(id){

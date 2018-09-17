@@ -26,7 +26,7 @@ export default ({
     meta: {error, touched}
 }) => (
     <div>
-        <Dropzone
+        <DropZone
             accept="image/jpeg, image/png, image/gif, image/bmp"
             classname="upload-container"
             onDrop={handleOnDrop}
@@ -42,7 +42,7 @@ export default ({
                 <div>Clik or drag img here</div>
             </div>            
         )}
-        </Dropzone>
+        </DropZone>
         {touched && error && <div style={{ color: "red" }}>{error}</div>}
     </div>
 )

@@ -5,11 +5,41 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createImage } from '../../actions';
 import requireAuth from '../requireAuth';
+import axios from 'axios';
 
 class ImageCreate extends Component {
 
-    renderField(field) { // param field contain some event handlers to wire up to the .jsx that we're returning
-        const { meta: {touched, error} } = field; // destructuring to access properties on nested objects for refactor
+    constructor(props){
+        super(props);
+        this.state = {
+            uploadStatus: false
+        }
+        this.handleUploadImage = this.handleUploadImage.bind(this);
+    }
+
+    handleUploadImage(ev){
+
+        alert('handleUploadImage !');
+
+        ev.preventDefault();
+
+        const data = new FormData();
+        data.append('file', this.uploadInput.files[0]);
+        data.append('filename', this.fileName.value);
+
+        alert('la requete va etre passee !');
+
+        axios.post('http://localhost:3000/upload', data)
+            .then((r)=>{
+                this.setState({ imageURL: `http://localhost:3000/${r.body.file}`, uploadStatus: true });
+            }).catch((err)=>{
+                console.log(err);
+            })
+
+    }
+
+    /*renderField(field) {
+        const { meta: {touched, error} } = field;
         const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
 
         return(
@@ -33,7 +63,7 @@ class ImageCreate extends Component {
         );
     }
 
-    onSubmit(values){
+    onSubmit(values, event){
         this.props.createImage(values, this.props.connected, () => {
             this.props.history.push('/image');
         });
@@ -51,13 +81,13 @@ class ImageCreate extends Component {
 
             <hr/>
 
-            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))} encType="multipart/form-data">
                 
                 <Field
                     label="Title"
                     name="title"
                     component={this.renderField}
-                />
+                />       
 
                 <button type="submit" className="btn btn-primary">Submit</button>
                 <Link to="/image" className="btn btn-danger">Cancel</Link>
@@ -76,7 +106,6 @@ function validate(values){
 
     const errors = {};
 
-    // validate the inputs from 'values'
     if(!values.title){
         errors.title = "Enter a title !";
     }
@@ -85,17 +114,41 @@ function validate(values){
         errors.description = "Enter a text !";
     }
 
-    //if errors is empty, the form is fine to submit
-    //if errors as any property, redux form is invalid
     return errors;
 
 }
 
 export default reduxForm({
     validate:validate,
-    form:'CreateImageForm'   //name must be unique (in case of several form it's usefull), and could be whatever string we want. 
+    form:'CreateImageForm'
 })(
     withRouter(requireAuth(connect(null, { createImage })(ImageCreate)))
 );
+*/
 
-//export default ImageCreate;
+    render(){
+        return(
+            <div className="container">
+                <form onSubmit={this.handleUploadImage}>
+                    <div className="form-group">
+                        <input className="form-controm" ref={(ref) => {this.uploadInput = ref;}} type="file"/>
+                    </div>
+
+                    <div className="form-group">
+                        <input className="form-control" ref={(ref) => {this.fileName = ref;}} type="text" placeholder="Optionnale name for the file"/>
+                    </div>
+
+                    <button className="btn btn-success">Upload</button>
+
+                </form>
+            </div>
+        )
+    }
+
+}
+
+function mapStateToProps(state){
+    return {auth:state.auth, categories:state.categories, images:state.images}
+}
+
+export default withRouter(connect(mapStateToProps, {createImage})(ImageCreate))

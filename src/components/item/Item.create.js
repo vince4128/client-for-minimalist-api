@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createItem, fetchCategories, fetchImages} from '../../actions';
 import requireAuth from '../requireAuth';
-import DropZoneField from '../Field/DropzoneField';
-
-const imageIsRequired = value => (isEmpty(value) ? "Required" : undefined);
 
 class ItemCreate extends Component {
 
