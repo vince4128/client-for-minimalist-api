@@ -5,17 +5,25 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createImage } from '../../actions';
 import requireAuth from '../requireAuth';
+import DropZoneField from '../Field/DropzoneField';
 import axios from 'axios';
+import Dropzone from 'react-dropzone';
 
 class ImageCreate extends Component {
 
     constructor(props){
         super(props);
         this.state = {
+            imageFile: [],
             uploadStatus: false
         }
         this.handleUploadImage = this.handleUploadImage.bind(this);
     }
+
+    handleOnDrop = (newImageFile, rejectedFile) => {
+        console.log("onDrop !!! : ", newImageFile);
+        this.setState({imageFile: newImageFile});        
+    };
 
     handleUploadImage(ev){
 
@@ -38,105 +46,26 @@ class ImageCreate extends Component {
 
     }
 
-    /*renderField(field) {
-        const { meta: {touched, error} } = field;
-        const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
-
-        return(
-            <div className={className}>
-                <label>{field.label}</label>
-                <input
-                    className="form-control"
-                    type="text"
-                    {...field.input}
-                />
-                {touched ? error : ''}
-            </div>
-        );
-    }
-
-    renderTagsField(field){
-        return(
-            <div className="form-group">
-
-            </div>
-        );
-    }
-
-    onSubmit(values, event){
-        this.props.createImage(values, this.props.connected, () => {
-            this.props.history.push('/image');
-        });
-    }
-
-    render(){
-
-        const { handleSubmit } = this.props;
-
-        return(
-
-            <div>
-
-            <h1>Create Image</h1>
-
-            <hr/>
-
-            <form onSubmit={handleSubmit(this.onSubmit.bind(this))} encType="multipart/form-data">
-                
-                <Field
-                    label="Title"
-                    name="title"
-                    component={this.renderField}
-                />       
-
-                <button type="submit" className="btn btn-primary">Submit</button>
-                <Link to="/image" className="btn btn-danger">Cancel</Link>
-
-        </form>
-
-        </div>
-
-        )
-    
-    }
-    
-}
-
-function validate(values){
-
-    const errors = {};
-
-    if(!values.title){
-        errors.title = "Enter a title !";
-    }
-
-    if(!values.text){
-        errors.description = "Enter a text !";
-    }
-
-    return errors;
-
-}
-
-export default reduxForm({
-    validate:validate,
-    form:'CreateImageForm'
-})(
-    withRouter(requireAuth(connect(null, { createImage })(ImageCreate)))
-);
-*/
-
     render(){
         return(
             <div className="container">
+            {JSON.stringify(this.state)}
                 <form onSubmit={this.handleUploadImage}>
                     <div className="form-group">
                         <input className="form-controm" ref={(ref) => {this.uploadInput = ref;}} type="file"/>
                     </div>
-
                     <div className="form-group">
                         <input className="form-control" ref={(ref) => {this.fileName = ref;}} type="text" placeholder="Optionnale name for the file"/>
                     </div>
+
+                    {/*<Field
+                        ref={(ref) => {this.uploadInput = ref;}}
+                        name="uploadInput"
+                        component={DropZoneField}
+                        type="file"
+                        imageFile={this.state.imageFile}
+                        handleOnDrop={this.handleOnDrop}                    
+                    />*/}
 
                     <button className="btn btn-success">Upload</button>
 
@@ -147,8 +76,31 @@ export default reduxForm({
 
 }
 
+function validate(values){
+
+    const errors = {};
+
+    // validate the inputs from 'values'
+    if(!values.title){
+        errors.title = "Enter a title !";
+    }
+
+    //if errors is empty, the form is fine to submit
+    //if errors as any property, redux form is invalid
+    return errors;
+
+}
+
 function mapStateToProps(state){
     return {auth:state.auth, categories:state.categories, images:state.images}
 }
 
-export default withRouter(connect(mapStateToProps, {createImage})(ImageCreate))
+export default reduxForm({
+    validate:validate,
+    form:'CreateImageForm'   //name must be unique (in case of several form it's usefull), and could be whatever string we want. 
+})(
+    withRouter(connect(mapStateToProps, {createImage})(ImageCreate))
+);
+
+
+//export default withRouter(connect(mapStateToProps, {createImage})(ImageCreate))

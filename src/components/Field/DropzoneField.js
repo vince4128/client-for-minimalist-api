@@ -3,18 +3,16 @@ import DropZone from 'react-dropzone';
 
 const renderImagePreview = imageFile => {
     return imageFile.map(({name, preview, size}) => {
-        <li key="imagePreview">
+        return (<li key="imagePreview">        
             <img
                 style={{display:"block", margin:"auto", paddingTop:"10%"}}
                 src={preview}
                 alt={name}
-                height="220px"
-                width="220px"
+                height="50px"
+                width="50px"
             />
-        </li>,
-        <li key="imageDetails">
-            {name} - {size} bytes
-        </li>
+            <span>{name} - {size} bytes</span>
+        </li>)
     });
 };
 
@@ -28,7 +26,7 @@ export default ({
     <div>
         <DropZone
             accept="image/jpeg, image/png, image/gif, image/bmp"
-            classname="upload-container"
+            multiple={ false }
             onDrop={handleOnDrop}
             onChange={file => input.onChange(file)}
         >
