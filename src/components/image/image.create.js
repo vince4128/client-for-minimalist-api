@@ -104,8 +104,8 @@ class ImageCreate extends Component {
                 .then((r)=>{
                     //this.setState({ imageURL: `http://localhost:3000/${r.body.file}`, uploadStatus: true });
                     //lancer action
-                    alert('callback');
-                    console.log('callback post image', r.data);
+                    //alert('callback');
+                    //console.log('callback post image', r.data);
                 }).catch((err)=>{
                     console.log(err);
                 })
