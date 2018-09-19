@@ -5,46 +5,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createSubitem, fetchImages } from '../../actions';
 import requireAuth from '../requireAuth';
+import RenderField from '../Field/RenderField';
+import RenderSelectField from '../Field/RenderSelectField';
 
 class SubitemCreate extends Component {
 
     componentDidMount(){
         this.props.fetchImages();
-    }
-
-    renderField(field) { // param field contain some event handlers to wire up to the .jsx that we're returning
-        const { meta: {touched, error} } = field; // destructuring to access properties on nested objects for refactor
-        const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
-
-        return(
-            <div className={className}>
-                <label>{field.label}</label>
-                <input
-                    className="form-control"
-                    type="text"
-                    {...field.input}
-                />
-                {touched ? error : ''}
-            </div>
-        );
-    }
-
-    renderSelectField(field){
-        const { meta: {touched, error}} = field;
-        const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
-
-        return(
-            <div className={className}>
-                <label>{field.label}</label>
-                <select
-                    className="form-control"
-                    type="select"
-                    {...field.input}>                    
-                    {field.children}
-                </select>
-                {touched ? error : ''}
-            </div>
-        )
     }
 
     renderImages(){
@@ -95,19 +62,19 @@ class SubitemCreate extends Component {
                 <Field
                     label="Title"
                     name="title"
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <Field
                     label="Text"
                     name="text"
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <Field
                     label="Image"
                     name="image"
-                    component={this.renderSelectField}>
+                    component={RenderSelectField}>
                     {this.renderImages()}
                 </Field>
 

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { editSubitem } from '../../actions';
 import requireAuth from '../requireAuth';
+import RenderField from '../Field/RenderField';
 
 class SubitemEdit extends Component {
 
@@ -19,23 +20,6 @@ class SubitemEdit extends Component {
     componentDidMount(){
         const { id } = this.props.match.params;
         this.setState({selectedSubitem:id});        
-    }
-
-    renderField(field) { // param field contain some event handlers to wire up to the .jsx that we're returning
-        const { meta: {touched, error} } = field; // destructuring to access properties on nested objects for refactor
-        const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
-
-        return(
-            <div className={className}>
-                <label>{field.label}</label>
-                <input
-                    className="form-control"
-                    type="text"
-                    {...field.input}
-                />
-                {touched ? error : ''}
-            </div>
-        );
     }
 
     renderTagsField(field){
@@ -69,13 +53,13 @@ class SubitemEdit extends Component {
                 <Field
                     label="Title"
                     name="title"
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <Field
                     label="Text"
                     name="text"
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <button type="submit" className="btn btn-primary">Submit</button>

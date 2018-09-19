@@ -5,25 +5,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createCategory } from '../../actions';
 import requireAuth from '../requireAuth';
+import RenderField from '../Field/RenderField';
 
 class CategoryCreate extends Component {
-
-    renderField(field) { // param field contain some event handlers to wire up to the .jsx that we're returning
-        const { meta: {touched, error} } = field; // destructuring to access properties on nested objects for refactor
-        const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
-
-        return(
-            <div className={className}>
-                <label>{field.label}</label>
-                <input
-                    className="form-control"
-                    type="text"
-                    {...field.input}
-                />
-                {touched ? error : ''}
-            </div>
-        );
-    }
 
     renderTagsField(field){
         return(
@@ -56,19 +40,19 @@ class CategoryCreate extends Component {
                 <Field
                     label="Title"
                     name="title"
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <Field
                     label="Description"
                     name="description"
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <Field
                     label="Short Description"
                     name="shortDescription"
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <button type="submit" className="btn btn-primary">Submit</button>

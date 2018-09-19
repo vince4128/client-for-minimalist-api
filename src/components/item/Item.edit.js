@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { editItem, fetchItem, fetchCategories, fetchImages } from '../../actions';
 import requireAuth from '../requireAuth';
+import RenderField from '../Field/RenderField';
+import RenderSelectField from '../Field/RenderSelectField';
 
 class ItemEdit extends Component {
 
@@ -22,48 +24,6 @@ class ItemEdit extends Component {
         this.props.fetchItem(id);
         this.props.fetchCategories();
         this.props.fetchImages();
-    }
-
-    renderField(field) { // param field contain some event handlers to wire up to the .jsx that we're returning
-        const { meta: {touched, error} } = field; // destructuring to access properties on nested objects for refactor
-        const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
-
-        return(
-            <div className={className}>
-                <label>{field.label}</label>
-                <input
-                    className="form-control"
-                    type="text"
-                    defaultValue={field.defaultValue}
-                    //placeholder={field.placeholder}                    
-                    //value={this.props.items[this.state.selectedItem].title}
-                    {...field.input}
-                />
-                {/*JSON.stringify(field)*/}
-                {touched ? error : ''}
-            </div>
-        );
-    }
-
-    renderSelectField(field){        
-        const { meta: {touched, error} } = field;
-        const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
-
-        return(           
-            <div className={className}>
-                <label>{field.label}</label>
-                <select
-                    className="form-control"
-                    type="select"
-                    {...field.input}>                    
-                    {/*<option value="valeur1">Valeur 1</option> 
-                    <option value="valeur2" selected>Valeur 2</option>
-        <option value="valeur3">Valeur 3</option>*/}
-                    {field.children}
-                </select>
-                {touched ? error : ''}
-            </div>
-        )
     }
 
     renderCategories(){
@@ -126,7 +86,7 @@ class ItemEdit extends Component {
                     name="title"
                     placeholder="Type your title"
                     defaultValue ="blablalba"            
-                    component={this.renderField}                    
+                    component={RenderField}                    
                 />
 
                 <Field
@@ -134,7 +94,7 @@ class ItemEdit extends Component {
                     name="description"
                     placeholder="placeholder"
                     placeholder="Type your title"                                        
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <Field
@@ -142,20 +102,20 @@ class ItemEdit extends Component {
                     name="shortdescription"
                     placeholder="placeholder"
                     placeholder="Type your title"                                        
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <Field
                     label="Image"
                     name="image"
-                    component={this.renderSelectField}>
+                    component={RenderSelectField}>
                     {this.renderImages()}
                 </Field>
 
                 <Field
                     label="Category"
                     name="category"
-                    component={this.renderSelectField}>
+                    component={RenderSelectField}>
                     {this.renderCategories()}
                 </Field>
 

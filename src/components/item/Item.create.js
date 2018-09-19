@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createItem, fetchCategories, fetchImages} from '../../actions';
 import requireAuth from '../requireAuth';
+import RenderField from '../Field/RenderField';
+import RenderSelectField from '../Field/RenderSelectField';
 
 class ItemCreate extends Component {
 
@@ -19,44 +21,6 @@ class ItemCreate extends Component {
     componentDidMount(){
         this.props.fetchCategories();
         this.props.fetchImages();
-    }
-
-    renderField(field) { // param field contain some event handlers to wire up to the .jsx that we're returning
-        const { meta: {touched, error} } = field; // destructuring to access properties on nested objects for refactor
-        const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
-
-        return(
-            <div className={className}>
-                <label>{field.label}</label>
-                <input
-                    className="form-control"
-                    type="text"
-                    {...field.input}
-                />
-                {touched ? error : ''}
-            </div>
-        );
-    }
-
-    renderSelectField(field){        
-        const { meta: {touched, error} } = field;
-        const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
-
-        return(           
-            <div className={className}>
-                <label>{field.label}</label>
-                <select
-                    className="form-control"
-                    type="select"
-                    {...field.input}>                    
-                    {/*<option value="valeur1">Valeur 1</option> 
-                    <option value="valeur2" selected>Valeur 2</option>
-        <option value="valeur3">Valeur 3</option>*/}
-                    {field.children}
-                </select>
-                {touched ? error : ''}
-            </div>
-        )
     }
 
     renderCategories(){
@@ -115,32 +79,32 @@ class ItemCreate extends Component {
                 <Field
                     label="Title"
                     name="title"
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <Field
                     label="Description"
                     name="description"
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <Field
                     label="Short Description"
                     name="shortdescription"
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <Field
                     label="Image"
                     name="image"
-                    component={this.renderSelectField}>
+                    component={RenderSelectField}>
                     {this.renderImages()}
                 </Field>
 
                 <Field
                     label="Category"
                     name="category"
-                    component={this.renderSelectField}>
+                    component={RenderSelectField}>
                     {this.renderCategories()}
                 </Field>
 

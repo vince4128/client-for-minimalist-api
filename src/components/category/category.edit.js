@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { editCategory } from '../../actions';
 import requireAuth from '../requireAuth';
+import RenderField from '../Field/RenderField';
 
 class CategoryEdit extends Component {
 
@@ -19,23 +20,6 @@ class CategoryEdit extends Component {
     componentDidMount(){
         const { id } = this.props.match.params;
         this.setState({selectedCategory:id});        
-    }
-
-    renderField(field) { // param field contain some event handlers to wire up to the .jsx that we're returning
-        const { meta: {touched, error} } = field; // destructuring to access properties on nested objects for refactor
-        const className = `form-group ${touched && error ? 'alert alert-danger' : ''}`;
-
-        return(
-            <div className={className}>
-                <label>{field.label}</label>
-                <input
-                    className="form-control"
-                    type="text"
-                    {...field.input}
-                />
-                {touched ? error : ''}
-            </div>
-        );
     }
 
     renderTagsField(field){
@@ -71,7 +55,7 @@ class CategoryEdit extends Component {
                     name="title"
                     placeholder="Type your title"
                     defaultValue ="blablalba"            
-                    component={this.renderField}                    
+                    component={RenderField}                    
                 />
 
                 <Field
@@ -79,7 +63,7 @@ class CategoryEdit extends Component {
                     name="description"
                     placeholder="placeholder"
                     placeholder="Type your title"                                        
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <Field
@@ -87,7 +71,7 @@ class CategoryEdit extends Component {
                     name="shortDescription"
                     placeholder="placeholder"
                     placeholder="Type your title"                                        
-                    component={this.renderField}
+                    component={RenderField}
                 />
 
                 <button type="submit" className="btn btn-primary">Submit</button>
